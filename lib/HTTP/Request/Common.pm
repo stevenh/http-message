@@ -82,8 +82,10 @@ sub POST
 	    $url->query_form(ref($content) eq "HASH" ? %$content : @$content);
 	    $content = $url->query;
 
-	    # HTML/4.01 says that line breaks are represented as "CR LF" pairs (i.e., `%0D%0A')
-	    $content =~ s/(?<!%0D)%0A/%0D%0A/g;
+	    if (defined $content) {
+		# HTML/4.01 says that line breaks are represented as "CR LF" pairs (i.e., `%0D%0A')
+		$content =~ s/(?<!%0D)%0A/%0D%0A/g;
+	    }
 	}
     }
 
